@@ -1,0 +1,189 @@
+@charset "utf-8";
+
+* {
+	font-family: Arial;
+	margin: 0px;
+	padding: 0px;
+}
+
+header,footer {
+	background: #202020;
+	color: #999;
+	padding: 20px;
+}
+
+nav {
+	background: #FFFFCC;
+	color: #404040;
+	padding: 20px;
+}
+
+section {
+	padding: 20px;
+}
+
+footer {
+	position: relative;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+	text-align: right;
+}
+
+section#contenido {
+	clear: both;
+}
+
+ul {
+	list-style: square outside;
+	margin: 0 0 12px 0;
+	padding: 0 0 0 20px;
+}
+
+ol {
+	margin: 0 0 12px 0;
+	padding: 0 0 0 20px;
+}
+
+section * li {
+	padding: 5px 0;
+}
+
+label {
+	padding: 0 4px;
+	margin: 0 6px 6px 0;
+	text-align: left;
+	width: 200px;
+	display: inline-block;
+}
+
+input,button {
+	border: 1px solid #CCC;
+	margin: 4px;
+	padding: 6px;
+	border-radius: 6px;
+	background: #FFF;
+}
+
+button,input[type="submit"] {
+	border: 2px solid #33AA66;
+	background: #AAFFCC;
+	cursor: pointer;
+}
+
+button:hover,input[type="submit"]:hover {
+	border: 2px solid #44BB88;
+	background: #BBFFEE;
+}
+
+button.cancelar {
+	border: 2px solid #AA3366;
+	background: #FFAACC
+}
+
+button.cancelar:hover {
+	border: 2px solid #BB4488;
+	background: #FFBBEE
+}
+
+a:active,a:hover,a:link,a:visited {
+	text-decoration: none;
+	color: #FF6633;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+ul.bookmarks {
+	list-style: none;
+	background: #DDD;
+	border-radius: 10px;
+	overflow-y: hidden;
+	padding: 10px;
+}
+
+ul.bookmarks li {
+	float: left;
+	width: 140px;
+	height: 180px;
+	padding: 10px;
+	background: white;
+	margin-right: 10px;
+	border-radius: 6px;
+}
+
+div.bookmark {
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+
+div.bookmark div.icon {
+	width: 140px;
+	height: 100px;
+	margin: 6px 0;
+	display: table-cell;
+	vertical-align: middle;
+	text-align: center;
+}
+
+div.bookmark div.icon img.icon {
+	max-width: 100px;
+	max-height: 100px;
+}
+
+div.delete {
+	position: relative;
+	float: right;
+	width: 16px;
+	height: 16px;
+	background: url(/img/delete.png);
+}
+
+div.delete div {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 16px;
+	height: 16px;
+	opacity: 0;
+	transition: opacity 0.5s;
+	-webkit-transition: opacity 0.5s;
+	-moz-transition: opacity 0.5s;
+	-o-transition: opacity 0.5s;
+}
+
+div.delete div:hover {
+	opacity: 1;
+}
+
+div.rating {
+	position: absolute;
+	width: 120px;
+	height: 24px;
+	bottom: 0px;
+	left: 50%;
+	margin-left: -60px;
+	background: url(/img/rating.png);
+}
+
+div.rating.stars0 {
+	background-position: 0px -200px;
+}
+
+div.rating.stars1 {
+	background-position: 0px -160px;
+}
+
+div.rating.stars2 {
+	background-position: 0px -120px;
+}
+
+div.rating.stars3 {
+	background-position: 0px -80px;
+}
+
+div.rating.stars4 {
+	background-position: 0px -40px;
+}

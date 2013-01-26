@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="css/styles.css" />
+<!-- <script src="js/jquery.min.js"></script>
+<script src="js/scripts.js"></script> -->
+<title>Pick'a'Bookmark</title>
+</head>
+<body>
+	<header>
+		<h1>Hello, {{ user }}</h1>
+	</header>
+	<section class="contenido">
+		<ul class="bookmarks">
+			{% for b in bookmarks %}
+			<li>
+				<div class="bookmark">
+					<div class="delete">
+						<div>
+							<a href="/delete?b={{b.name}}"><img
+									src="img/delete_hover.png" /></a>
+						</div>
+					</div>
+					<a href="{{ b.url }}"><h3>{{ b.name }}</h3>
+						<div class="icon">
+							<img class="icon" src="{{ b.icon }}" />
+						</div> </a>
+					<small class="tags">{{ b.tags }}</small>
+					<div class="rating stars{{b.rating}}"></div>
+				</div>
+			</li>
+			{% endfor %}
+		</ul>
+		<div>
+			<form action="/submit" method="post">
+				<label for="name">Name:</label>
+				<input type="text" name="name">
+				<br>
+				<label for="icon">Icon:</label>
+				<input type="text" name="icon">
+				<br>
+				<label for="url">URL:</label>
+				<input type="text" name="url">
+				<br>
+				<label for="tags">Tags:</label>
+				<input type="text" name="tags">
+				<br>
+				<label for="rating">Rating:</label>
+				<input type="text" name="rating">
+				<br>
+				<input type="submit" value="Add">
+				<button class="cancelar"
+					onclick="javascript:window.location.href='/'">Cancel</button>
+			</form>
+		</div>
+	</section>
+	<footer>
+		<a href="{{ url }}">{{ url_linktext }}</a>
+	</footer>
+</body>
+</html>
