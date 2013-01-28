@@ -3,35 +3,64 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css" href="css/styles.css" />
-<!-- <script src="js/jquery.min.js"></script>
-<script src="js/scripts.js"></script> -->
+<script src="js/jquery.min.js"></script>
+<script src="js/scripts.js"></script>
 <title>Pick'a'Bookmark</title>
 </head>
 <body>
 	<header>
 		<h1>Hello, {{ user }}</h1>
 	</header>
-	<section class="contenido">
+	<section id="contenido">
+		{% if bookmarks %}
 		<ul class="bookmarks">
 			{% for b in bookmarks %}
-			<li>
-				<div class="bookmark">
-					<div class="delete">
+			<li class="panel">
+				<div class="bookmark front">
+					<div class="toggle button16" id="delete">
 						<div>
 							<a href="/delete?b={{b.name}}"><img
 									src="img/delete_hover.png" /></a>
 						</div>
 					</div>
+					<div class="toggle click button16" id="edit">
+						<div>
+							<a href="#"><img src="img/edit_hover.png" /></a>
+						</div>
+					</div>
 					<a href="{{ b.url }}"><h3>{{ b.name }}</h3>
 						<div class="icon">
-							<img class="icon" src="{{ b.icon }}" />
-						</div> </a>
-					<small class="tags">{{ b.tags }}</small>
+							<img src="{{ b.icon }}" />
+						</div> </a> <small class="tags">{{ b.tags }}</small>
 					<div class="rating stars{{b.rating}}"></div>
+				</div>
+				<div class="bookmark back">
+					<h3 class="center">Edit "{{b.name}}"</h3>
+					<form action="/edit" method="POST">
+						<label for="name">Name:</label>
+						<input type="text" name="name" value="{{b.name}}">
+						<br>
+						<label for="icon">Icon:</label>
+						<input type="text" name="icon" value="{{b.icon}}">
+						<br>
+						<label for="tags">Tags:</label>
+						<input type="text" name="tags" value="{{b.tags}}">
+						<br>
+						<label for="rating">Rating:</label>
+						<input type="text" name="rating" value="{{b.rating}}">
+						<br>
+						<input type="hidden" name="url" value="{{b.url}}">
+						<input type="hidden" name="old_name" id="old_name"
+							value="{{b.name}}" />
+						<label for="submit"> </label>
+						<input type="submit" value="OK">
+						<button class="cancelar click">Cancel</button>
+					</form>
 				</div>
 			</li>
 			{% endfor %}
 		</ul>
+		{% endif %}
 		<div>
 			<form action="/submit" method="post">
 				<label for="name">Name:</label>
@@ -49,6 +78,7 @@
 				<label for="rating">Rating:</label>
 				<input type="text" name="rating">
 				<br>
+				<label for="submit"></label>
 				<input type="submit" value="Add">
 				<button class="cancelar"
 					onclick="javascript:window.location.href='/'">Cancel</button>
@@ -56,7 +86,8 @@
 		</div>
 	</section>
 	<footer>
-		<a href="{{ url }}">{{ url_linktext }}</a>
+		<a href="{{ url }}">{{ url_linktext }}&emsp;<img
+				src="img/{{ url_img }}.png" align="center" /></a>
 	</footer>
 </body>
 </html>
