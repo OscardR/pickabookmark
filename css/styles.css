@@ -4,14 +4,18 @@
   padding: 0px; }
 
 body {
-  background-color: black; }
+  color: #999999;
+  background-color: black;
+  text-shadow: 1px 1px black, 1px 0px black, 0px 1px black; }
 
 header, footer {
-  background-color: #222222;
   border-radius: 20px;
   color: #999;
   margin-bottom: 10px;
-  padding: 20px; }
+  padding: 20px;
+  color: #cccccc;
+  background-color: #222222;
+  text-shadow: 1px 1px #2a2a2a, 1px 0px #2a2a2a, 0px 1px #2a2a2a; }
 
 nav {
   background-color: #ffffcc;
@@ -44,10 +48,12 @@ ol {
   padding: 0 0 0 20px; }
 
 form {
-  background-color: #ccccaa;
   border-radius: 10px;
   padding: 20px;
-  width: 300px; }
+  width: 300px;
+  color: #666633;
+  background-color: #ccccaa;
+  text-shadow: 1px 1px #d8d8c8, 1px 0px #d8d8c8, 0px 1px #d8d8c8; }
 
 label {
   padding: 0 4px;
@@ -57,16 +63,27 @@ label {
   display: inline-block; }
 
 input, button {
-  border: 1px solid #CCC;
+  border: 1px solid rgba(51, 51, 51, 0.25);
   margin: 4px;
   padding: 6px;
   border-radius: 6px;
-  background-color: white; }
+  background-color: rgba(0, 0, 0, 0.25);
+  color: white;
+  background-color: rgba(0, 0, 0, 0.25);
+  text-shadow: 1px 1px rgba(147, 147, 147, 0.625), 1px 0px rgba(147, 147, 147, 0.625), 0px 1px rgba(147, 147, 147, 0.625); }
 
 button, input[type="submit"] {
   border: 2px solid #339977;
   background-color: #66ccaa;
   cursor: pointer; }
+
+input[type="text"] {
+  color: white;
+  box-shadow: inset 2px 2px 8px 2px rgba(0, 0, 0, 0.15);
+  -o-box-shadow: inset 2px 2px 8px 2px rgba(0, 0, 0, 0.15);
+  -ms-box-shadow: inset 2px 2px 8px 2px rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: inset 2px 2px 8px 2px rgba(0, 0, 0, 0.15);
+  -webkit-box-shadow: inset 2px 2px 8px 2px rgba(0, 0, 0, 0.15); }
 
 button:hover, input[type="submit"]:hover {
   border-color: #66ccaa;
@@ -82,33 +99,37 @@ button.cancelar:hover {
 
 a:active, a:hover, a:link, a:visited {
   text-decoration: none;
-  color: #ff6633; }
+  color: #ff6633;
+  color: #ff6633;
+  text-shadow: 1px 1px #ffb399; }
 
 a:hover {
   text-decoration: underline; }
 
 ul.bookmarks {
   list-style: none;
-  background: #dddddd;
   border-radius: 10px;
   overflow-y: hidden;
-  padding: 10px;
-  perspective: 1000px;
-  -o-perspective: 1000px;
-  -ms-perspective: 1000px;
-  -moz-perspective: 1000px;
-  -webkit-perspective: 1000px; }
+  padding: 16px 0 0 16px;
+  color: #888888;
+  background-color: #dddddd;
+  text-shadow: 1px 1px #fefefe, 1px 0px #fefefe, 0px 1px #fefefe;
+  perspective: 1200px;
+  -o-perspective: 1200px;
+  -ms-perspective: 1200px;
+  -moz-perspective: 1200px;
+  -webkit-perspective: 1200px; }
   ul.bookmarks li {
     float: left;
     position: relative;
     width: 160px;
     height: 180px;
-    margin-right: 10px; }
+    margin: 0 16px 16px 0; }
 
 .bookmark {
   padding: 10px;
   border-radius: 6px;
-  box-shadow: 5px 5px 3px #888;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
   width: 140px;
   height: 160px;
   position: absolute;
@@ -137,14 +158,18 @@ ul.bookmarks {
     font-size: 10px;
     color: #999;
     margin: 0px;
-    padding: 0px; }
+    padding: 0px;
+    color: black;
+    background-color: #444444;
+    text-shadow: 1px 1px #6f6f6f, 1px 0px #6f6f6f, 0px 1px #6f6f6f; }
   .bookmark input, .bookmark button {
     width: 86px;
     font-size: 10px;
     padding: 2px;
     margin: 2px;
     border-radius: 4px;
-    width: 86px; }
+    width: 86px;
+    text-shadow: none; }
   .bookmark input[type="submit"], .bookmark button {
     width: auto;
     border-radius: 6px;
@@ -314,7 +339,9 @@ ul.bookmarks {
   z-index: 800; }
 
 .flip .back {
+  color: black;
   background-color: #444444;
+  text-shadow: 1px 1px #6f6f6f, 1px 0px #6f6f6f, 0px 1px #6f6f6f;
   transform: rotateY(0deg);
   -o-transform: rotateY(0deg);
   -ms-transform: rotateY(0deg);

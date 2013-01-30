@@ -1,12 +1,38 @@
 $a-c: #F63;
 $body-bg-c: #000;
+$body-fc: #999;
 $form-bg-c: #CCA;
+$form-fc: #663;
+$form-back-fc: #000;
 $header-bg-c: #222;
-$input-bg-c: #FFF;
+$header-fc: #CCC;
+$input-bg-c: rgba(0, 0, 0, 0.25);
+$input-shadow: inset 2px 2px 8px 2px rgba(0, 0, 0, 0.15);
+$input-fc: #FFF;
 $nav-bg-c: #FFC;
 $section-bg-c: #FFF;
 $submit-btn-bg-c: #6CA;
 $cancel-btn-bg-c: #C6A;
+
+
+// Variables para las sombras:
+
+$depth: 1px 1px;
+$dark: 30%;
+$light: 30%;
+	
+@mixin text-bg-shadow($color, $bg-color) {
+	color: $color;
+	background-color: $bg-color;
+	$mix: mix($color, $bg-color);
+	$s: if(lightness($color) < lightness($bg-color), lighten($mix, $light), darken($mix, $dark));
+	text-shadow: $depth $s, 1px 0px $s, 0px 1px $s;
+}
+
+@mixin text-shadow-only($color, $s-color) {
+	color: $color;
+	text-shadow: $depth $s-color;
+}
 
 $bookmarks-ul-bg-c: #DDD;
 
@@ -15,3 +41,6 @@ $bookmark-back-bg-c: #444;
 
 $front-z: 600;
 $back-z: 800;
+
+$bm-persp: 1200px;
+$bm-spacing: 16px;

@@ -9,15 +9,15 @@
 }
 
 body {
-	background-color: $body-bg-c;
+	@include text-bg-shadow($body-fc, $body-bg-c);
 }
 
 header,footer {
-	background-color: $header-bg-c;
 	border-radius: 20px;
 	color: #999;
 	margin-bottom: 10px;
 	padding: 20px;
+	@include text-bg-shadow($header-fc, $header-bg-c);
 }
 
 nav {
@@ -57,10 +57,10 @@ ol {
 }
 
 form {
-	background-color: $form-bg-c;
 	border-radius: 10px;
 	padding: 20px;
 	width: 300px;
+	@include text-bg-shadow($form-fc, $form-bg-c);
 }
 
 label {
@@ -72,17 +72,27 @@ label {
 }
 
 input,button {
-	border: 1px solid #CCC;
+	border: 1px solid lighten($input-bg-c, 20%);
 	margin: 4px;
 	padding: 6px;
 	border-radius: 6px;
 	background-color: $input-bg-c;
+	@include text-bg-shadow($input-fc, $input-bg-c);
 }
 
 button,input[type="submit"] {
 	border: 2px solid darken($submit-btn-bg-c, 20%);
 	background-color: $submit-btn-bg-c;
 	cursor: pointer;
+}
+
+input[type="text"] {
+	color: $input-fc;
+	box-shadow: $input-shadow;
+	-o-box-shadow: $input-shadow;
+	-ms-box-shadow: $input-shadow;
+	-moz-box-shadow: $input-shadow;
+	-webkit-box-shadow: $input-shadow;
 }
 
 button:hover,input[type="submit"]:hover {
@@ -103,6 +113,7 @@ button.cancelar:hover {
 a:active,a:hover,a:link,a:visited {
 	text-decoration: none;
 	color: $a-c;
+	@include text-shadow-only($a-c, lighten($a-c, 20%));
 }
 
 a:hover {
@@ -111,29 +122,31 @@ a:hover {
 
 ul.bookmarks {
 	list-style: none;
-	background: $bookmarks-ul-bg-c;
 	border-radius: 10px;
 	overflow-y: hidden;
-	padding: 10px;
-	perspective: 1000px;
-	-o-perspective: 1000px;
-	-ms-perspective: 1000px;
-	-moz-perspective: 1000px;
-	-webkit-perspective: 1000px;
+	padding: $bm-spacing 0 0 $bm-spacing;
+
+	@include text-bg-shadow(#888, $bookmarks-ul-bg-c);
+	
+	perspective: $bm-persp;
+	-o-perspective: $bm-persp;
+	-ms-perspective: $bm-persp;
+	-moz-perspective: $bm-persp;
+	-webkit-perspective: $bm-persp;
 	
 	li {
 		float: left;
 		position: relative;
 		width: 160px;
 		height: 180px;
-		margin-right: 10px;
+		margin: 0 $bm-spacing $bm-spacing 0;
 	}
 }
 
 .bookmark {
 	padding: 10px;
 	border-radius: 6px;
-	box-shadow: 5px 5px 3px #888;
+	box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
 	width: 140px;
 	height: 160px;
 	position: absolute;
@@ -168,6 +181,7 @@ ul.bookmarks {
 		color: #999;
 		margin: 0px;
 		padding: 0px;
+		@include text-bg-shadow($form-back-fc, $bookmark-back-bg-c);
 	}
 	
 	input, button {
@@ -177,6 +191,7 @@ ul.bookmarks {
 		margin: 2px;
 		border-radius: 4px;
 		width: 86px;
+		text-shadow: none;
 	}
 	
 	input[type="submit"], button {
@@ -373,7 +388,7 @@ ul.bookmarks {
 }
 
 .flip .back {
-	background-color: $bookmark-back-bg-c;
+	@include text-bg-shadow(darken($bookmark-back-bg-c, 40%), $bookmark-back-bg-c);
 	transform: rotateY(0deg);
 	-o-transform: rotateY(0deg);
 	-ms-transform: rotateY(0deg);
