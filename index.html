@@ -61,8 +61,9 @@
 			{% endfor %}
 		</ul>
 		{% endif %}
-		<div>
+		<div id="add_bookmark">
 			<form action="/submit" method="post">
+				<h2>Add Bookmark</h2>
 				<label for="name">Name:</label>
 				<input type="text" name="name">
 				<br>
@@ -76,17 +77,25 @@
 				<input type="text" name="tags">
 				<br>
 				<label for="rating">Rating:</label>
-				<input type="text" name="rating">
+				<fieldset class="rating">
+					<label class="no_star no_display" id="star0"><input type="radio" name="rating" value="0" id="r0"> 0</label><br>
+					<label class="no_star" id="star1"><img src="img/stars.png"  width="0" height="1" alt="stars"><input type="radio" name="rating" value="1" id="r1"> 1</label><br>
+					<label class="no_star" id="star2"><img src="img/stars.png"  width="0" height="1" alt="stars"><input type="radio" name="rating" value="2" id="r2"> 2</label><br>
+					<label class="no_star" id="star3"><img src="img/stars.png"  width="0" height="1" alt="stars"><input type="radio" name="rating" value="3" id="r3"> 3</label><br>
+					<label class="no_star" id="star4"><img src="img/stars.png"  width="0" height="1" alt="stars"><input type="radio" name="rating" value="4" id="r4"> 4</label><br>
+					<label class="no_star" id="star5"><img src="img/stars.png"  width="0" height="1" alt="stars"><input type="radio" name="rating" value="5" id="r5"> 5</label>
+				</fieldset>
+				<!-- <input type="text" name="rating"> -->
 				<br>
 				<label for="submit"></label>
 				<input type="submit" value="Add">
 				<button class="cancelar"
-					onclick="javascript:window.location.href='/'">Cancel</button>
+					onclick="javascript:return false;">Cancel</button>
 			</form>
 		</div>
 	</section>
 	<footer>
-		<a href="{{ url }}">{{ url_linktext }}&emsp;<img
+		<a href="{{ url }}">{{ url_linktext }}<img class="icon"
 				src="img/{{ url_img }}.png" align="center" /></a>
 	</footer>
 </body>
