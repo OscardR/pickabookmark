@@ -63,44 +63,27 @@ class MainPage(webapp.RequestHandler):
 class Submit(webapp.RequestHandler):
     def post(self):
         bookmark = Bookmark()
-        if users.get_current_user() != None:
-            bookmark.user = users.get_current_user().email()
-        else:
-            bookmark.user = None
-        bookmark.name = self.request.get('name')
-        bookmark.url = self.request.get('url')
-        bookmark.icon = self.request.get('icon')
-
-        image = urlfetch.Fetch(self.request.get('icon'))
-        img = images.Image(image.content)
-        img.resize(140, 80, False)
-        img.execute_transforms(images.PNG)
-
-#        self.response.headers['Content-Type'] = 'text/plain'
-#        self.response.out.write("%dx%d" % (img.width, img.height))
-
-        bookmark.image = db.Blob(img._image_data)
-        bookmark.rating = self.request.get('rating')
-        bookmark.tags = self.request.get('tags')
-        bookmark.put()
-        self.redirect('/')
-
-class Edit(webapp.RequestHandler):
-    def post(self):
-        bookmark = Bookmark()
         user = users.get_current_user()
         if user != None:
-            bookmark.user = users.get_current_user().email()
+            bookmark.user = user.email()
         else:
             bookmark.user = None
         
-        # Borrar el bookmark existente
-        delete_bookmark(user, self.request.get('old_name'))
+        # Borrar el bookmark existente si editamos
+        if self.request.get('action') == 'edit': 
+            delete_bookmark(user, self.request.get('old_name'))
         
         # Añadir el bookmark cambiado
         bookmark.name = self.request.get('name')
         bookmark.url = self.request.get('url')
         bookmark.icon = self.request.get('icon')
+        
+        image = urlfetch.Fetch(self.request.get('icon'))
+        img = images.Image(image.content)
+        img.resize(140, 80, False)
+        img.execute_transforms(images.PNG)
+        
+        bookmark.image = db.Blob(img._image_data)
         bookmark.rating = self.request.get('rating')
         bookmark.tags = self.request.get('tags')
         bookmark.put()
@@ -120,5 +103,4 @@ def delete_bookmark(user, name):
 app = webapp.WSGIApplication([('/', MainPage),
                               ('/submit', Submit),
                               ('/delete', Delete),
-                              ('/edit', Edit),
                               ('/display', ImageHandler)], debug=True)
