@@ -28,10 +28,11 @@
 							<a href="#"><img src="img/edit_hover.png" /></a>
 						</div>
 					</div>
-					<a href="{{ b.url }}"><h3>{{ b.name }}</h3>
-						<div class="icon">
-							<img src="{{ b.icon }}" />
-						</div> </a> <small class="tags">{{ b.tags }}</small>
+					<a href="{{ b.url }}"><h3>{{ b.name }}</h3></a>
+					<div class="icon">
+						<a href="{{b.icon}}"> <img src="/display?key={{b.key()}}" /></a>
+					</div>
+					<small class="tags">{{ b.tags }}</small>
 					<div class="rating stars{{b.rating}}"></div>
 				</div>
 				<div class="bookmark back">
@@ -62,7 +63,7 @@
 		</ul>
 		{% endif %}
 		<div id="add_bookmark">
-			<form action="/submit" method="post">
+			<form action="/submit" method="post" enctype="multipart/form-data">
 				<h2>Add Bookmark</h2>
 				<label for="name">Name:</label>
 				<input type="text" name="name">
@@ -78,19 +79,46 @@
 				<br>
 				<label for="rating">Rating:</label>
 				<fieldset class="rating">
-					<label class="no_star no_display" id="star0"><input type="radio" name="rating" value="0" id="r0"> 0</label><br>
-					<label class="no_star" id="star1"><img src="img/stars.png"  width="0" height="1" alt="stars"><input type="radio" name="rating" value="1" id="r1"> 1</label><br>
-					<label class="no_star" id="star2"><img src="img/stars.png"  width="0" height="1" alt="stars"><input type="radio" name="rating" value="2" id="r2"> 2</label><br>
-					<label class="no_star" id="star3"><img src="img/stars.png"  width="0" height="1" alt="stars"><input type="radio" name="rating" value="3" id="r3"> 3</label><br>
-					<label class="no_star" id="star4"><img src="img/stars.png"  width="0" height="1" alt="stars"><input type="radio" name="rating" value="4" id="r4"> 4</label><br>
-					<label class="no_star" id="star5"><img src="img/stars.png"  width="0" height="1" alt="stars"><input type="radio" name="rating" value="5" id="r5"> 5</label>
+					<label class="no_star no_display" id="star0">
+						<input type="radio" name="rating" value="0" id="r0">
+						0
+					</label>
+					<br>
+					<label class="no_star" id="star1">
+						<img src="img/stars.png" width="0" height="1" alt="stars">
+						<input type="radio" name="rating" value="1" id="r1">
+						1
+					</label>
+					<br>
+					<label class="no_star" id="star2">
+						<img src="img/stars.png" width="0" height="1" alt="stars">
+						<input type="radio" name="rating" value="2" id="r2">
+						2
+					</label>
+					<br>
+					<label class="no_star" id="star3">
+						<img src="img/stars.png" width="0" height="1" alt="stars">
+						<input type="radio" name="rating" value="3" id="r3">
+						3
+					</label>
+					<br>
+					<label class="no_star" id="star4">
+						<img src="img/stars.png" width="0" height="1" alt="stars">
+						<input type="radio" name="rating" value="4" id="r4">
+						4
+					</label>
+					<br>
+					<label class="no_star" id="star5">
+						<img src="img/stars.png" width="0" height="1" alt="stars">
+						<input type="radio" name="rating" value="5" id="r5">
+						5
+					</label>
 				</fieldset>
 				<!-- <input type="text" name="rating"> -->
 				<br>
 				<label for="submit"></label>
 				<input type="submit" value="Add">
-				<button class="cancelar"
-					onclick="javascript:return false;">Cancel</button>
+				<button class="cancelar" onclick="javascript:return false;">Cancel</button>
 			</form>
 		</div>
 	</section>

@@ -1,28 +1,44 @@
 # -*- coding: utf-8 -*-
+import os
+import jinja2
+
 from google.appengine.ext import webapp
 from google.appengine.ext import db
 from google.appengine.api import users
-import jinja2
-import os
+from google.appengine.api import urlfetch
+from google.appengine.api import images
+from base64 import encode
 
 jinja_environment = jinja2.Environment(\
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)))
+
+class ImageHandler (webapp.RequestHandler):
+    def get(self):
+        key = self.request.get('key')
+        bookmark = db.get(key)
+        if bookmark.image:
+            self.response.headers['Content-Type'] = 'image/png'
+            self.response.out.write(bookmark.image)
+        else:
+            self.error(404)
 
 class Bookmark(db.Model):
     user = db.StringProperty()
     name = db.StringProperty()
     url = db.StringProperty()
     icon = db.StringProperty()
+    image = db.BlobProperty()
     rating = db.StringProperty()
     tags = db.StringProperty()
     date = db.DateTimeProperty(auto_now_add=True)
 
 class MainPage(webapp.RequestHandler):
     def get(self):
-        user = users.get_current_user()
-        bookmarks = db.GqlQuery("SELECT * "
-            "FROM Bookmark WHERE user = :1", user.email() if user != None else None)
         allowed = False
+        user = users.get_current_user()
+        bookmarks = db.GqlQuery('SELECT * '
+            'FROM Bookmark WHERE user = :1', user.email() if user != None else None)
+        
         if user:
             url = users.create_logout_url(self.request.uri)
             url_linktext = 'Logout'
@@ -54,6 +70,16 @@ class Submit(webapp.RequestHandler):
         bookmark.name = self.request.get('name')
         bookmark.url = self.request.get('url')
         bookmark.icon = self.request.get('icon')
+
+        image = urlfetch.Fetch(self.request.get('icon'))
+        img = images.Image(image.content)
+        img.resize(140, 80, False)
+        img.execute_transforms(images.PNG)
+
+#        self.response.headers['Content-Type'] = 'text/plain'
+#        self.response.out.write("%dx%d" % (img.width, img.height))
+
+        bookmark.image = db.Blob(img._image_data)
         bookmark.rating = self.request.get('rating')
         bookmark.tags = self.request.get('tags')
         bookmark.put()
@@ -91,4 +117,8 @@ def delete_bookmark(user, name):
     bookmark = Bookmark.gql('WHERE name = :1 AND user = :2', name, user.email() if user != None else None)
     db.delete(bookmark)
 
-app = webapp.WSGIApplication([('/', MainPage), ('/submit', Submit), ('/delete', Delete), ('/edit', Edit)], debug=True)
+app = webapp.WSGIApplication([('/', MainPage),
+                              ('/submit', Submit),
+                              ('/delete', Delete),
+                              ('/edit', Edit),
+                              ('/display', ImageHandler)], debug=True)

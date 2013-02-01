@@ -318,7 +318,7 @@ ul.bookmarks {
 
 .front {
   background-color: white;
-  z-index: 600; }
+  z-index: 800; }
 
 .back {
   transform: rotateY(-180deg);
@@ -326,7 +326,7 @@ ul.bookmarks {
   -ms-transform: rotateY(-180deg);
   -moz-transform: rotateY(-180deg);
   -webkit-transform: rotateY(-180deg);
-  z-index: 800;
+  z-index: 600;
   background-color: black; }
 
 .flip .front {
@@ -336,7 +336,7 @@ ul.bookmarks {
   -ms-transform: rotateY(180deg);
   -moz-transform: rotateY(180deg);
   -webkit-transform: rotateY(180deg);
-  z-index: 800; }
+  z-index: 600; }
 
 .flip .back {
   color: black;
@@ -347,4 +347,4 @@ ul.bookmarks {
   -ms-transform: rotateY(0deg);
   -moz-transform: rotateY(0deg);
   -webkit-transform: rotateY(0deg);
-  z-index: 600; }
+  z-index: 800; }
