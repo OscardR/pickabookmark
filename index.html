@@ -5,6 +5,7 @@
 <link rel="stylesheet" type="text/css" href="css/styles.css" />
 <script src="js/jquery.min.js"></script>
 <script src="js/scripts.js"></script>
+<script src="js/json2.js"></script>
 <title>Pick'a'Bookmark</title>
 </head>
 <body>
@@ -19,8 +20,9 @@
 				<div class="bookmark front">
 					<div class="toggle button16" id="delete">
 						<div>
-							<a href="/delete?b={{b.name}}"><img
-									src="img/delete_hover.png" /></a>
+							<a href="#"><img src="img/delete_hover.png"
+									onclick="doDelete('{{b.name}}')" /></a>
+							<!-- /delete?b={{b.name}} -->
 						</div>
 					</div>
 					<div class="toggle click button16" id="edit">

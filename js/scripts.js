@@ -1,3 +1,6 @@
+/**
+ * jQuery functions
+ */
 $(document).ready(function() {
 	// set up hover panels
 	// although this can be done without JavaScript, we've attached
@@ -41,4 +44,23 @@ $(document).ready(function() {
 		$('#r' + rating).prop('checked', 'checked');
 		e.preventDefault();
 	});
+
 });
+
+// AJAX Delete Functions
+function onDeleteSuccess(response) {
+	alert("Borrado!");
+}
+
+function doDelete(name) {
+	$.ajax({
+		url : "/rpc",
+		type : 'GET',
+		data : {
+			'action' : 'Delete',
+			'name' : name,
+			'ajax' : 'ajax'
+		},
+		success : onDeleteSuccess
+	});
+}
