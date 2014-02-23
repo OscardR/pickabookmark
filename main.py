@@ -73,10 +73,15 @@ class Submit(webapp2.RequestHandler):
             bookmark.user = None
 
         # Procesar la imagen a partir de la URL
-        image = urlfetch.Fetch(self.request.get('icon'))
-        img = images.Image(image.content)
-        img.resize(140, 80, False)
-        img.execute_transforms(images.PNG)
+        try:
+            image = urlfetch.Fetch(self.request.get('icon'))
+            img = images.Image(image.content)
+        except:
+            image = urlfetch.Fetch("http://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/No_icon_red.svg/582px-No_icon_red.svg.png")
+            img = images.Image(image.content)
+        finally:
+            img.resize(140, 80, False)
+            img.execute_transforms(images.PNG)
 
         # Recopilar los datos introducidos
         bookmark.name = self.request.get('name')
@@ -153,30 +158,14 @@ class RPCMethods:
 
 class APIGetHandler(webapp2.RequestHandler):
     def get(self):
-        allowed = False
         user = users.get_current_user()
         bookmarks = db.GqlQuery('SELECT * '
             'FROM Bookmark WHERE user = :1', user.email() if user != None else None)
-        
-        if user:
-            url = users.create_logout_url(self.request.uri)
-            url_linktext = 'Logout'
-            url_img = 'logout'
-        else:
-            url = users.create_login_url(self.request.uri)
-            url_linktext = 'Login'
-            url_img = 'login'
 
-        template_values = {
-            'bookmarks' : bookmarks,
-            'url' : url,
-            'url_linktext' : url_linktext,
-            'user' : user,
-            'allowed' : allowed,
-            'url_img' : url_img
-        }
-
-        self.response.out.write(template_values)
+        cosas = {'bookmarks': bookmarks }
+        template = jinja_environment.get_template('bookmark.html')
+        print cosas
+        self.response.out.write(template.render(cosas))
 
 def delete_bookmark(user, name):
     bookmark = Bookmark.gql('WHERE name = :1 AND user = :2', name, user.email() if user != None else None)
