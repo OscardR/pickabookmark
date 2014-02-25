@@ -146,9 +146,9 @@ ul.bookmarks {
 .bookmark {
 	padding: 10px;
 	border-radius: 6px;
-	box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
-	width: 140px;
-	height: 160px;
+	//box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
+	//width: 140px;
+	//height: 160px;
 	position: absolute;
 	top: 0px;
 	left: 0px;
@@ -162,7 +162,6 @@ ul.bookmarks {
 	-ms-backface-visibility: hidden;
 	-moz-backface-visibility: hidden;
 	-webkit-backface-visibility: hidden;
-	position: absolute;
 	
 	h3 {
 		font-size: 14px;
@@ -171,8 +170,9 @@ ul.bookmarks {
 
 	form {
 		background: transparent;
-		padding:0px;
+		padding: 0px;
 		border: none;
+		width: 100%
 	}
 	
 	label {
@@ -259,7 +259,7 @@ ul.bookmarks {
 	position: absolute;
 	width: 120px;
 	height: 24px;
-	bottom: 10px;
+	//bottom: 10px;
 	left: 50%;
 	margin-left: -60px;
 	background-image: url(/img/rating.png);
