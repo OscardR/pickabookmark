@@ -1,7 +1,7 @@
 # coding:utf8
 import os
-import jinja2
 import webapp2
+import jinja2
 
 from google.appengine.ext import db
 from google.appengine.api import users
@@ -9,8 +9,14 @@ from google.appengine.api import urlfetch
 from google.appengine.api import images
 from django.utils import simplejson
 
+def split( string ):
+    return string.strip().split()
+
 jinja_environment = jinja2.Environment( \
     loader=jinja2.FileSystemLoader( os.path.dirname( __file__ ) ) )
+
+jinja_environment.filters['split'] = split
+
 
 class ImageHandler ( webapp2.RequestHandler ):
     def get( self ):
@@ -38,6 +44,7 @@ class MainPage( webapp2.RequestHandler ):
         user = users.get_current_user()
         bookmarks = db.GqlQuery( 'SELECT * '
             'FROM Bookmark WHERE user = :1', user.email() if user != None else None )
+        style = self.request.get( 'style' )
 
         if user:
             url = users.create_logout_url( self.request.uri )
@@ -56,6 +63,11 @@ class MainPage( webapp2.RequestHandler ):
             'allowed' : allowed,
             'url_img' : url_img
         }
+
+        if style == '':
+            template_values['styles'] = 'styles.css'
+        else:
+            template_values['styles'] = 'styles-{}.css'.format( style )
 
         template = jinja_environment.get_template( 'index.html' )
         self.response.out.write( template.render( template_values ) )
@@ -164,8 +176,8 @@ class APIHandler( webapp2.RequestHandler ):
         cosas = {'bookmarks': bookmarks}
 
         self.response.headers['Content-Type'] = 'application/json'
-        template = jinja_environment.get_template('bookmark.html')
-        self.response.out.write(template.render(cosas))
+        template = jinja_environment.get_template( 'bookmark.html' )
+        self.response.out.write( template.render( cosas ) )
 
 def delete_bookmark( user, name ):
     bookmark = Bookmark.gql( 'WHERE name = :1 AND user = :2', name, user.email() if user != None else None )

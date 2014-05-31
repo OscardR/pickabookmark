@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" type="text/css" href="css/styles.css" />
 <link rel="stylesheet" href="css/bootstrap.min.css" />
 <link rel="stylesheet" href="css/bootstrap-theme.min.css" />
+<link rel="stylesheet" type="text/css" href="css/{{styles}}" />
 <script src="js/jquery.min.js"></script>
-<script src="js/scripts.js"></script>
-<script src="js/json2.js"></script>
 <script src="js/bootstrap.min.js"></script>
+<script src="js/json2.js"></script>
+<script src="js/scripts.js"></script>
 <title>Pick'a'Bookmark</title>
 </head>
 <body>
@@ -36,7 +36,9 @@
 					<div class="icon">
 						<a href="{{b.icon}}"> <img src="/display?key={{b.key()}}" /></a>
 					</div>
-					<small class="tags">{{ b.tags }}</small>
+					<small class="tags">{% for t in b.tags|split %}<span
+						class="label label-primary" style="font-weight: normal; font-size: 100%">{{ t }}</span> {%endfor%}
+					</small>
 					<div class="rating stars{{b.rating}}"></div>
 				</div>
 				<div class="bookmark back">

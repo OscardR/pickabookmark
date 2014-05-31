@@ -1,0 +1,398 @@
+@import 'constants';
+
+@charset "utf-8";
+
+* {
+	font-family: Helvetica, Arial, sans-serif;
+	margin: 0px;
+	padding: 0px;
+}
+
+body {
+	@include text-bg-shadow($body-fc, $body-bg-c);
+}
+
+header,footer {
+	border-radius: 20px;
+	color: #999;
+	margin-bottom: 10px;
+	padding: 20px;
+	@include text-bg-shadow($header-fc, $header-bg-c);
+}
+
+nav {
+	background-color: $nav-bg-c;
+	color: #444;
+	padding: 20px;
+}
+
+section {
+	padding: 20px;
+	margin-bottom: 10px;
+}
+
+footer {
+	position: relative;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+	text-align: right;
+}
+
+section {
+	clear: both;
+	background-color: $section-bg-c;
+	border-radius: 20px;
+}
+
+ul {
+	list-style: square outside;
+	margin: 0 0 12px 0;
+	padding: 0 0 0 20px;
+}
+
+ol {
+	margin: 0 0 12px 0;
+	padding: 0 0 0 20px;
+}
+
+form {
+	border-radius: 10px;
+	padding: 20px;
+	width: 300px;
+	@include text-bg-shadow($form-fc, $form-bg-c);
+}
+
+label {
+	padding: 0 4px;
+	margin: 0 6px 6px 0;
+	text-align: right;
+	width: 100px;
+	display: inline-block;
+}
+
+input,button {
+	border: 1px solid lighten($input-bg-c, 20%);
+	margin: 4px;
+	padding: 6px;
+	border-radius: 6px;
+	background-color: $input-bg-c;
+	@include text-bg-shadow($input-fc, $input-bg-c);
+}
+
+button,input[type="submit"] {
+	border: 2px solid darken($submit-btn-bg-c, 20%);
+	background-color: $submit-btn-bg-c;
+	cursor: pointer;
+}
+
+input[type="text"] {
+	color: $input-fc;
+	box-shadow: $input-shadow;
+	-o-box-shadow: $input-shadow;
+	-ms-box-shadow: $input-shadow;
+	-moz-box-shadow: $input-shadow;
+	-webkit-box-shadow: $input-shadow;
+}
+
+button:hover,input[type="submit"]:hover {
+	border-color: $submit-btn-bg-c;
+	background-color: lighten($submit-btn-bg-c, 20%);
+}
+
+button.cancelar {
+	border-color: darken($cancel-btn-bg-c, 20%);
+	background-color: $cancel-btn-bg-c;
+}
+
+button.cancelar:hover {
+	border-color: $cancel-btn-bg-c;
+	background-color: lighten($cancel-btn-bg-c, 20%);
+}
+
+a:active,a:hover,a:link,a:visited {
+	text-decoration: none;
+	color: $a-c;
+	@include text-shadow-only($a-c, lighten($a-c, 20%));
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+ul.bookmarks {
+	list-style: none;
+	border-radius: 10px;
+	overflow-y: hidden;
+	padding: $bm-spacing 0 0 $bm-spacing;
+
+	@include text-bg-shadow(#888, $bookmarks-ul-bg-c);
+	
+	perspective: $bm-persp;
+	-o-perspective: $bm-persp;
+	-ms-perspective: $bm-persp;
+	-moz-perspective: $bm-persp;
+	-webkit-perspective: $bm-persp;
+	
+	li {
+		float: left;
+		position: relative;
+		width: 160px;
+		height: 180px;
+		margin: 0 $bm-spacing $bm-spacing 0;
+	}
+}
+
+.bookmark {
+	padding: 10px;
+	border-radius: 6px;
+	//box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
+	//width: 140px;
+	//height: 160px;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	transform-style: preserve-3d;
+	-o-transform-style: preserve-3d;
+	-ms-transform-style: preserve-3d;
+	-moz-transform-style: preserve-3d;
+	-webkit-transform-style: preserve-3d;
+	backface-visibility: hidden;
+	-o-backface-visibility: hidden;
+	-ms-backface-visibility: hidden;
+	-moz-backface-visibility: hidden;
+	-webkit-backface-visibility: hidden;
+	
+	h3 {
+		font-size: 14px;
+		margin-bottom: 5px;
+	}
+
+	form {
+		background: transparent;
+		padding: 0px;
+		border: none;
+		width: 100%
+	}
+	
+	label {
+		width: 40px;
+		font-size: 10px;
+		color: #999;
+		margin: 0px;
+		padding: 0px;
+		@include text-bg-shadow($form-back-fc, $bookmark-back-bg-c);
+	}
+	
+	input, button {
+		width: 86px;
+		font-size: 10px;
+		padding: 2px;
+		margin: 2px;
+		border-radius: 4px;
+		width: 86px;
+		text-shadow: none;
+	}
+	
+	input[type="submit"], button {
+		width: auto;
+		border-radius: 6px;
+		padding: 4px;
+		margin: 4px;
+	}
+	
+	.icon {
+		width: 140px;
+		height: 80px;
+		margin: 6px 0;
+		display: table-cell;
+		vertical-align: middle;
+		text-align: center;
+	}
+	
+	.icon img {
+		max-width: 140px;
+		max-height: 80px;
+	}
+}
+
+.bookmark.back h3 {
+	color: #999;
+}
+	
+.button16,.button16 * {
+	position: relative;
+	float: right;
+	width: 16px;
+	height: 16px;
+}
+
+#delete,#edit {
+	margin-left: 10px;
+}
+
+#delete {
+	background: url(/img/delete.png);
+}
+
+#edit {
+	background: url(/img/edit.png);
+}
+
+.toggle {
+	div {
+		position: absolute;
+		top: 0;
+		left: 0;
+		opacity: 0;
+		transition: opacity 0.5s;
+		-webkit-transition: opacity 0.5s;
+		-moz-transition: opacity 0.5s;
+		-o-transition: opacity 0.5s;
+	}
+	*:hover {
+		opacity: 1;
+	}
+}
+
+.rating {
+	position: absolute;
+	width: 120px;
+	height: 24px;
+	//bottom: 10px;
+	left: 50%;
+	margin-left: -60px;
+	background-image: url(/img/rating.png);
+	background-color: transparent;
+	background-position: 0 0;
+	background-repeat: no-repeat;
+	
+}
+
+#add_bookmark {
+	form { width: 390px; }
+	label { width: 50px; }
+	input { width: 300px; }
+	button, input[type="submit"] { width: auto;	}
+	
+	.rating {
+		width: 300px;
+		display: inline-block;
+		vertical-align: middle;
+		position: inherit;
+		height: 40px;
+		bottom: inherit;
+		left: inherit;
+		margin-left: inherit;
+		background-image: none;
+		border: none;
+
+		br {
+		  display:none;
+		}
+
+		label {
+		  position: relative;
+		  height: 24px;
+		  width: 24px;
+		  overflow: hidden;
+		  float: left;
+		  background: transparent;
+		  margin: 6px 1px 0 0;
+		  padding: 0;
+		  text-indent: 999em;
+		}
+		label:hover {
+		  opacity:.5;
+		  filter:alpha(opacity=50);
+		}
+		input {
+		  position: absolute;
+		  left: -999em;
+		  top: .5em;
+		}
+		img {
+		  width: 48px;
+		  height: 24px;
+		  position: absolute;
+		  top: 0;
+		  left: 0;
+		  cursor: pointer;
+		}
+		.no_star {
+		  background: transparent;
+		}
+		.no_star img {
+		  left:-24px;
+		}
+		fieldset {
+		  border:0;
+		  height: 24px;
+		  vertical-align: bottom;
+		}
+	}
+}
+
+@for $i from 0 to 5 {
+	.stars#{$i} {
+		background-position: 0px -40px * (5 - $i);
+	}
+}
+
+.center {
+	text-align: center;
+}
+
+.icon {
+	margin-left: 10px;
+}
+
+.no_display {
+	display: none;
+}
+
+/*
+ Flipping tags
+ */
+.front,.back {
+	transition: transform 0.6s, background 0.6s;
+	-o-transition: -o-transform 0.6s, background 0.6s;
+	-ms-transition: -ms-transform 0.6s, background 0.6s;
+	-moz-transition: -moz-transform 0.6s, background 0.6s;
+	-webkit-transition: -webkit-transform 0.6s, background 0.6s;
+}
+
+.front {
+	background-color: $bookmark-front-bg-c;
+	z-index: $front-z;
+}
+
+.back {
+	transform: rotateY(-180deg);
+	-o-transform: rotateY(-180deg);
+	-ms-transform: rotateY(-180deg);
+	-moz-transform: rotateY(-180deg);
+	-webkit-transform: rotateY(-180deg);
+	z-index: $back-z;
+	background-color: darken($bookmark-back-bg-c, 40%);
+}
+
+.flip .front {
+	background-color: darken($bookmark-front-bg-c, 40%);
+	transform: rotateY(180deg);
+	-o-transform: rotateY(180deg);
+	-ms-transform: rotateY(180deg);
+	-moz-transform: rotateY(180deg);
+	-webkit-transform: rotateY(180deg);
+	z-index: $back-z;
+}
+
+.flip .back {
+	@include text-bg-shadow(darken($bookmark-back-bg-c, 40%), $bookmark-back-bg-c);
+	transform: rotateY(0deg);
+	-o-transform: rotateY(0deg);
+	-ms-transform: rotateY(0deg);
+	-moz-transform: rotateY(0deg);
+	-webkit-transform: rotateY(0deg);
+	z-index: $front-z;
+}
