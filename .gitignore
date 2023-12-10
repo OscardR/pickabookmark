@@ -1,1 +1,7 @@
-/main.pyc
+*.pyc
+venv
+.idea
+.settings
+.project
+.pydevproject
+.sass-cache

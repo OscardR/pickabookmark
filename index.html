@@ -1,105 +1,144 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<link rel="stylesheet" href="css/bootstrap.min.css" />
-<link rel="stylesheet" href="css/bootstrap-theme.min.css" />
-<link rel="stylesheet" type="text/css" href="css/{{styles}}" />
-<script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/json2.js"></script>
-<script src="js/scripts.js"></script>
-<title>Pick'a'Bookmark</title>
-</head>
-<body>
-	<header>
-		<h1>Hello, {{ user }}</h1>
-	</header>
-	<section id="contenido" class="container">
-		{% if bookmarks %}
-		<ul class="bookmarks" class="row">
-			{% for b in bookmarks %}
-			<li class="panel col-lg-3 col-sm-6 col-xs-12">
-				<div class="bookmark front">
-					<div class="toggle button16" id="delete">
-						<div>
-							<a href="#"><img src="img/delete_hover.png"
-								onclick="doDelete('{{b.name}}')" /></a>
-						</div>
-					</div>
-					<div class="toggle click button16" id="edit">
-						<div>
-							<a href="#"><img src="img/edit_hover.png" /></a>
-						</div>
-					</div>
-					<a href="{{ b.url }}"><h3>{{ b.name }}</h3></a>
-					<div class="icon">
-						<a href="{{b.icon}}"> <img src="/display?key={{b.key()}}" /></a>
-					</div>
-					<small class="tags">{% for t in b.tags|split %}<span
-						class="label label-primary" style="font-weight: normal; font-size: 100%">{{ t }}</span> {%endfor%}
-					</small>
-					<div class="rating stars{{b.rating}}"></div>
-				</div>
-				<div class="bookmark back">
-					<h3 class="center">Edit "{{b.name}}"</h3>
-					<form action="/submit" method="POST" enctype="multipart/form-data">
-						<label for="name">Name:</label> <input type="text" name="name"
-							value="{{b.name}}"> <br> <label for="icon">Icon:</label>
-						<input type="text" name="icon" value="{{b.icon}}"> <br>
-						<label for="tags">Tags:</label> <input type="text" name="tags"
-							value="{{b.tags}}"> <br> <label for="rating">Rating:</label>
-						<input type="text" name="rating" value="{{b.rating}}"> <br>
-						<input type="hidden" name="url" value="{{b.url}}"> <label
-							for="submit"> </label> <input type="submit" value="OK">
-						<button class="cancelar click">Cancel</button>
-						<input type="hidden" name="old_name" id="old_name"
-							value="{{b.name}}" /> <input type="hidden" name="action"
-							value="edit" />
-					</form>
-				</div>
-			</li> {% endfor %}
-		</ul>
-		{% endif %}
-		<div id="add_bookmark">
-			<form action="/submit" method="POST" enctype="multipart/form-data">
-				<h2>Add Bookmark</h2>
-				<label for="name">Name:</label> <input type="text" name="name">
-				<br> <label for="icon">Icon:</label> <input type="text"
-					name="icon"> <br> <label for="url">URL:</label> <input
-					type="text" name="url"> <br> <label for="tags">Tags:</label>
-				<input type="text" name="tags"> <br> <label
-					for="rating">Rating:</label>
-				<fieldset class="rating">
-					<label class="no_star no_display" id="star0"> <input
-						type="radio" name="rating" value="0" id="r0"> 0
-					</label> <br> <label class="no_star" id="star1"> <img
-						src="img/stars.png" width="0" height="1" alt="stars"> <input
-						type="radio" name="rating" value="1" id="r1"> 1
-					</label> <br> <label class="no_star" id="star2"> <img
-						src="img/stars.png" width="0" height="1" alt="stars"> <input
-						type="radio" name="rating" value="2" id="r2"> 2
-					</label> <br> <label class="no_star" id="star3"> <img
-						src="img/stars.png" width="0" height="1" alt="stars"> <input
-						type="radio" name="rating" value="3" id="r3"> 3
-					</label> <br> <label class="no_star" id="star4"> <img
-						src="img/stars.png" width="0" height="1" alt="stars"> <input
-						type="radio" name="rating" value="4" id="r4"> 4
-					</label> <br> <label class="no_star" id="star5"> <img
-						src="img/stars.png" width="0" height="1" alt="stars"> <input
-						type="radio" name="rating" value="5" id="r5"> 5
-					</label>
-				</fieldset>
-				<!-- <input type="text" name="rating"> -->
-				<br> <label for="submit"></label> <input type="submit"
-					value="Add">
-				<button class="cancelar" onclick="javascript:return false;">Cancel</button>
-			</form>
-		</div>
-	</section>
-	<footer>
-		<a href="{{ url }}">{{ url_linktext }}<img class="icon"
-			src="img/{{ url_img }}.png" align="center" /></a>
-	</footer>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="css/{{styles}}" />
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.1/js/bootstrap.min.js"></script>
+    <!-- <script src="js/json2.js"></script> -->
+    <script src="js/scripts.js"></script>
+
+    <title>Pick'a'Bookmark</title>
+  </head>
+  <body>
+    <header>
+      <h1>Hello, {{ user }}</h1>
+    </header>
+
+    <section id="contenido" class="container">
+      {% if bookmarks %}
+      <ul class="bookmarks" class="row">
+        {% for b in bookmarks %}
+        <li class="panel col-lg-3 col-sm-6 col-xs-12">
+          <div class="bookmark front">
+            <div class="toggle button16" id="delete">
+              <div>
+                <a href="#"
+                  ><img
+                    src="img/delete_hover.png"
+                    onclick="doDelete('{{b.name}}')"
+                /></a>
+              </div>
+            </div>
+            <div class="toggle click button16" id="edit">
+              <div>
+                <a href="#"><img src="img/edit_hover.png" /></a>
+              </div>
+            </div>
+            <a href="{{ b.url }}"><h3>{{ b.name }}</h3></a>
+            <div class="icon">
+              <a href="{{b.icon}}"> <img src="/display?key={{b.key()}}" /></a>
+            </div>
+            <small class="tags"
+              >{% for t in b.tags|split %}<span
+                class="label label-primary"
+                style="font-weight: normal; font-size: 100%"
+                >{{ t }}</span
+              >
+              {%endfor%}
+            </small>
+            <div class="rating stars{{b.rating}}"></div>
+          </div>
+          <div class="bookmark back">
+            <h3 class="center">Edit "{{b.name}}"</h3>
+            <form action="/submit" method="POST" enctype="multipart/form-data">
+              <label for="name">Name:</label>
+              <input type="text" name="name" value="{{b.name}}" /> <br />
+              <label for="icon">Icon:</label>
+              <input type="text" name="icon" value="{{b.icon}}" /> <br />
+              <label for="tags">Tags:</label>
+              <input type="text" name="tags" value="{{b.tags}}" /> <br />
+              <label for="rating">Rating:</label>
+              <input type="text" name="rating" value="{{b.rating}}" /> <br />
+              <input type="hidden" name="url" value="{{b.url}}" />
+              <label for="submit"> </label> <input type="submit" value="OK" />
+              <button class="cancelar click">Cancel</button>
+              <input
+                type="hidden"
+                name="old_name"
+                id="old_name"
+                value="{{b.name}}"
+              />
+              <input type="hidden" name="action" value="edit" />
+            </form>
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+
+      <div id="add_bookmark">
+        <form action="/submit" method="POST" enctype="multipart/form-data">
+          <h2>Add Bookmark</h2>
+          <label for="name">Name:</label> <input type="text" name="name" />
+          <br />
+          <label for="icon">Icon:</label> <input type="text" name="icon" />
+          <br />
+          <label for="url">URL:</label> <input type="text" name="url" /> <br />
+          <label for="tags">Tags:</label> <input type="text" name="tags" />
+          <br />
+          <label for="rating">Rating:</label>
+          <fieldset class="rating">
+            <label class="no_star no_display" id="star0">
+              <input type="radio" name="rating" value="0" id="r0" /> 0
+            </label>
+            <br />
+            <label class="no_star" id="star1">
+              <img src="img/stars.png" width="0" height="1" alt="stars" />
+              <input type="radio" name="rating" value="1" id="r1" /> 1
+            </label>
+            <br />
+            <label class="no_star" id="star2">
+              <img src="img/stars.png" width="0" height="1" alt="stars" />
+              <input type="radio" name="rating" value="2" id="r2" /> 2
+            </label>
+            <br />
+            <label class="no_star" id="star3">
+              <img src="img/stars.png" width="0" height="1" alt="stars" />
+              <input type="radio" name="rating" value="3" id="r3" /> 3
+            </label>
+            <br />
+            <label class="no_star" id="star4">
+              <img src="img/stars.png" width="0" height="1" alt="stars" />
+              <input type="radio" name="rating" value="4" id="r4" /> 4
+            </label>
+            <br />
+            <label class="no_star" id="star5">
+              <img src="img/stars.png" width="0" height="1" alt="stars" />
+              <input type="radio" name="rating" value="5" id="r5" /> 5
+            </label>
+          </fieldset>
+          <!-- <input type="text" name="rating"> -->
+          <br />
+          <label for="submit"></label> <input type="submit" value="Add" />
+          <button class="cancelar" onclick="javascript:return false;">
+            Cancel
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <footer>
+      <a href="{{ url }}"
+        >{{ url_linktext }}<img
+          class="icon"
+          src="img/{{ url_img }}.png"
+          style="text-align: center"
+      /></a>
+    </footer>
+  </body>
 </html>
